@@ -64,41 +64,78 @@ public class CheckersDesign {
 		this.board[endRow][endCol] = piece;
 	}
 
-	public boolean canMove(int startRow, int startCol, int endRow, int endCol){
+	public boolean[] canMove(int startRow, int startCol, int endRow, int endCol) {
+		boolean[] type = { false, false };
 		this.piece = this.board[startRow][startCol];
-		if(this.board[endRow][endCol]!=null){
-			return false;
+		if (this.board[endRow][endCol] != null) {
+			return type;
 		}
-		if(this.getCurrentPlayer()==this.piece.getPlayer()){
-			if(this.piece.getPlayer()==Player.Red){
-				if(this.piece.isKing()){
-					return false;
-				}else{
-					if(startRow+1==endRow && startCol+1==endCol || startCol-1==endCol){
-						return true;
-					}else{
-						return false;
-					}
+		if (this.piece.getPlayer() == Player.Red) {
+			if (this.piece.isKing()) {
+				return type;
+			} else {
+				if (startRow + 1 == endRow && startCol + 1 == endCol || startCol - 1 == endCol) {
+					type[0] = true;
+					return type;
+				} else if (startRow + 2 == endRow && ((startCol + 2 == endCol
+						&& this.board[startRow + 1][startCol + 1].getPlayer() == Player.Black)
+						|| (startCol - 2 == endCol
+								&& this.board[startRow + 1][startCol - 1].getPlayer() == Player.Black))) {
+					type[1] = true;
+					return type;
 				}
-			}else{
-				if(this.piece.getPlayer()==Player.Black){
-					if(this.piece.isKing()){
-						return false;
-					}else{
-						if(startRow-1==endRow && startCol+1==endCol || startCol-1==endCol){
-							return true;
-						}else{
-							return false;
-						}
-					}
+			}
+		} else {
+			if (this.piece.isKing()) {
+				type[0] = true;
+				return type;
+			} else {
+				if (startRow - 1 == endRow && (startCol + 1 == endCol || startCol - 1 == endCol)) {
+					type[1] = true;
+					return type;
+				} else if (startRow - 2 == endRow
+						&& ((startCol - 2 == endCol && this.board[startRow - 1][startCol - 1].getPlayer() == Player.Red)
+								|| (startCol + 2 == endCol
+										&& this.board[startRow - 1][startCol + 1].getPlayer() == Player.Red))) {
+					type[1] = true;
+					return type;
 				}
 			}
 		}
-		return false;
+		return type;
 	}
 
-	private Player getCurrentPlayer() {
+	public int[] jumped(int startRow, int startCol, int endRow, int endCol) {
+		int[] location = new int[2];
+		if (startRow < endRow) {
+			location[0] = startRow + 1;
+			if (startCol < endCol) {
+				location[1] = startCol + 1;
+			} else {
+				location[1] = endCol + 1;
+			}
+		} else {
+			location[0] = endRow + 1;
+			if (startCol < endCol) {
+				location[1] = startCol + 1;
+			} else {
+				location[1] = endCol + 1;
+			}
+		}
+		this.board[location[0]][location[1]] = null;
+		return location;
+	}
+
+	public Player getCurrentPlayer() {
 		return this.player;
+	}
+
+	public void setCurrentPlayer() {
+		this.player = this.player.nextTurn();
+	}
+
+	public CheckersPiece getPiece(int row, int col) {
+		return this.board[row][col];
 	}
 
 }
