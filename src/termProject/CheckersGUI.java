@@ -15,8 +15,12 @@ public class CheckersGUI extends JPanel implements ActionListener {
 	private Icon blank;
 	private boolean firstClick;
 	private int[] moves;
-	private JLabel currentPlayer;
+	private JLabel displayCurrentPlayer;
+	private String currentPlayer;
 
+	/**
+	 * Constructor creates the user board and sets values to the instance variables
+	 */
 	public CheckersGUI() {
 		this.board = new JButton[8][8];
 		this.piece = null;
@@ -26,6 +30,7 @@ public class CheckersGUI extends JPanel implements ActionListener {
 		this.blank = new ImageIcon("Blank.png");
 		this.firstClick = true;
 		this.moves = new int[4];
+		this.currentPlayer= "It is Red's turn.";
 
 		// creates a layout for the board
 		JPanel boardPanel = new JPanel();
@@ -53,14 +58,18 @@ public class CheckersGUI extends JPanel implements ActionListener {
 		}
 		
 		// create a panel to show who's turn it is
-		JPanel currentPlayer = new JPanel();
-		this.currentPlayer = new JLabel(this.currentPlayer());
+		JPanel currentPlayerLabel = new JPanel();
+		this.displayCurrentPlayer = new JLabel(this.currentPlayer);
+		currentPlayerLabel.add(this.displayCurrentPlayer);
 		this.displayBoard();
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		add(currentPlayer);
+		add(currentPlayerLabel);
 		add(boardPanel);
 	}
 
+	/**
+	 * Helper method for the constructor that sets the icons for the board
+	 */
 	private void displayBoard() {
 		for (int row = 0; row < 8; row++) {
 			for (int col = 0; col < 8; col++) {
@@ -76,18 +85,33 @@ public class CheckersGUI extends JPanel implements ActionListener {
 		}
 	}
 	
-	public String currentPlayer(){
+	/**
+	 * @return a string that lets the users know who's turn it currently is.
+	 */
+	public void currentPlayer(){
 		if(this.design.getCurrentPlayer()==Player.Red){
-			return "It is Red's turn.";
+			this.currentPlayer = "It is Red's turn.";
 		}else{
-			return "It is Black's turn.";
+			this.currentPlayer = "It is Black's turn.";
 		}
 	}
 
+	/**
+	 * Removes the piece that has been jumped
+	 * @param row the row of the piece to be removed
+	 * @param col the column of the piece to be removed
+	 */
 	public void removeJumpedPiece(int row, int col){
 		this.board[row][col].setIcon(this.blank);
 	}
 	
+	/**
+	 * Moves the icons to represent a piece that has moved in the game design
+	 * @param startRow the row of the piece that is now empy
+	 * @param startCol the column of the piece that is now empty
+	 * @param endRow the row of the location that now contains the moved piece
+	 * @param endCol the column of the location that now contains the moved piece
+	 */
 	private void movePiece(int startRow, int startCol, int endRow, int endCol) {
 		this.piece = this.design.getPiece(endRow, endCol);
 		this.board[startRow][startCol].setIcon(this.blank);
@@ -98,6 +122,9 @@ public class CheckersGUI extends JPanel implements ActionListener {
 		}
 	}
 
+	/**
+	 * Method reacts to the different buttons that are pressed and updates the game accordinly
+	 */
 	public void actionPerformed(ActionEvent e) {
 		if (firstClick) {
 			for (int row = 0; row < 8; row++) {
@@ -111,6 +138,8 @@ public class CheckersGUI extends JPanel implements ActionListener {
 						}
 						if(this.piece.getPlayer()==this.design.getCurrentPlayer()){
 							this.firstClick = false;
+						}else{
+							JOptionPane.showMessageDialog(null, this.currentPlayer);
 						}
 					}
 				}
@@ -124,19 +153,20 @@ public class CheckersGUI extends JPanel implements ActionListener {
 						if (this.design.canMove(moves[0], moves[1], moves[2], moves[3])[0]) {
 							this.design.movePiece(moves[0], moves[1], moves[2], moves[3]);
 							this.movePiece(moves[0], moves[1], moves[2], moves[3]);
-							this.firstClick = true;
 							this.design.setCurrentPlayer();
 						}else if(this.design.canMove(moves[0], moves[1], moves[2], moves[3])[1]){
 							this.design.movePiece(moves[0], moves[1], moves[2], moves[3]);
 							this.movePiece(moves[0], moves[1], moves[2], moves[3]);
 							int[] location = this.design.jumped(moves[0], moves[1], moves[2], moves[3]);
 							this.removeJumpedPiece(location[0],  location[1]);
-							this.firstClick = true;
 							this.design.setCurrentPlayer();
 						}
 					}
 				}
-			}
+			}this.currentPlayer();
+			this.displayCurrentPlayer.setText(this.currentPlayer);
+			
+			this.firstClick = true;
 		}
 	}
 
