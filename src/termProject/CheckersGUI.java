@@ -175,7 +175,7 @@ public class CheckersGUI extends JPanel implements ActionListener {
 						if (this.model.canMove(moves[0], moves[1], moves[2], moves[3])[0]) {
 							this.model.movePiece(moves[0], moves[1], moves[2], moves[3]);
 							this.movePiece(moves[0], moves[1], moves[2], moves[3]);
-							this.model.setCurrentPlayer();
+							this.model.setNextPlayer();
 						} else if (this.model.canMove(moves[0], moves[1], moves[2], moves[3])[1]) {
 							this.model.movePiece(moves[0], moves[1], moves[2], moves[3]);
 							this.movePiece(moves[0], moves[1], moves[2], moves[3]);
@@ -189,15 +189,18 @@ public class CheckersGUI extends JPanel implements ActionListener {
 								}
 								this.model = new CheckersModel();
 								this.displayBoard();
+								this.currentPlayer();
+								this.displayCurrentPlayer.setText(this.currentPlayer);
+								this.firstClick = true;
+								return;
 							}
-							this.model.setCurrentPlayer();
+							this.model.setNextPlayer();
 						}
 					}
 				}
 			}
 			this.currentPlayer();
 			this.displayCurrentPlayer.setText(this.currentPlayer);
-
 			this.firstClick = true;
 		}
 	}
