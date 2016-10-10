@@ -145,7 +145,7 @@ public class CheckersGUI extends JPanel implements ActionListener {
 
 	/**
 	 * Method reacts to the different buttons that are pressed and updates the
-	 * game accordinly
+	 * game accordingly
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (firstClick) {
