@@ -5,6 +5,13 @@ import javax.swing.*;
 
 import java.awt.event.*;
 
+/**
+ * Class implements all of the buttons and visuals of the program so that the
+ * user can interact with the model class.
+ * 
+ * @author Andrew Olesk
+ * @version September 13, 2016
+ */
 public class CheckersGUI extends JPanel implements ActionListener {
 
 	private JButton[][] board;
