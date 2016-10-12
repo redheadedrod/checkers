@@ -5,6 +5,13 @@ import javax.swing.*;
 
 import java.awt.event.*;
 
+/**
+ * Class implements all of the buttons and visuals of the program so that the
+ * user can interact with the model class.
+ * 
+ * @author Andrew Olesk
+ * @version September 13, 2016
+ */
 public class CheckersGUI extends JPanel implements ActionListener {
 
 	private JButton[][] board;
@@ -138,7 +145,7 @@ public class CheckersGUI extends JPanel implements ActionListener {
 
 	/**
 	 * Method reacts to the different buttons that are pressed and updates the
-	 * game accordinly
+	 * game accordingly
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (firstClick) {
@@ -168,7 +175,7 @@ public class CheckersGUI extends JPanel implements ActionListener {
 						if (this.model.canMove(moves[0], moves[1], moves[2], moves[3])[0]) {
 							this.model.movePiece(moves[0], moves[1], moves[2], moves[3]);
 							this.movePiece(moves[0], moves[1], moves[2], moves[3]);
-							this.model.setCurrentPlayer();
+							this.model.setNextPlayer();
 						} else if (this.model.canMove(moves[0], moves[1], moves[2], moves[3])[1]) {
 							this.model.movePiece(moves[0], moves[1], moves[2], moves[3]);
 							this.movePiece(moves[0], moves[1], moves[2], moves[3]);
@@ -182,15 +189,18 @@ public class CheckersGUI extends JPanel implements ActionListener {
 								}
 								this.model = new CheckersModel();
 								this.displayBoard();
+								this.currentPlayer();
+								this.displayCurrentPlayer.setText(this.currentPlayer);
+								this.firstClick = true;
+								return;
 							}
-							this.model.setCurrentPlayer();
+							this.model.setNextPlayer();
 						}
 					}
 				}
 			}
 			this.currentPlayer();
 			this.displayCurrentPlayer.setText(this.currentPlayer);
-
 			this.firstClick = true;
 		}
 	}

@@ -259,7 +259,7 @@ public class CheckersModel {
 	/**
 	 * Switches the turn of the current player to the next player
 	 */
-	public void setCurrentPlayer() {
+	public void setNextPlayer() {
 		this.player = this.player.nextTurn();
 	}
 
@@ -273,14 +273,16 @@ public class CheckersModel {
 	public CheckersPiece getPiece(int row, int col) {
 		return this.board[row][col];
 	}
-	
+
 	/**
 	 * Removes a piece from a specific location
-	 * @param row the row of the piece
-	 * @param col the col of the piece
+	 * 
+	 * @param row
+	 *            the row of the piece
+	 * @param col
+	 *            the col of the piece
 	 */
-	public void removePiece(int row, int col){
+	public void removePiece(int row, int col) {
 		this.board[row][col] = null;
 	}
-
 }

@@ -107,7 +107,7 @@ public class CheckersTest {
 
 	@Test
 	public void testIsWinner2() {
-		this.model.setCurrentPlayer();
+		this.model.setNextPlayer();
 		for (int row = 7; row > 4; row--) {
 			for (int col = 0; col < 8; col++) {
 				this.model.removePiece(row, col);
@@ -157,7 +157,7 @@ public class CheckersTest {
 	@Test
 	public void testSetAndGetPlayer() {
 		assertEquals(Player.Black, this.model.getCurrentPlayer());
-		this.model.setCurrentPlayer();
+		this.model.setNextPlayer();
 		assertEquals(Player.Red, this.model.getCurrentPlayer());
 	}
 
@@ -184,7 +184,7 @@ public class CheckersTest {
 
 	@Test
 	public void testIsWinner4() {
-		this.model.setCurrentPlayer();
+		this.model.setNextPlayer();
 		for (int row = 7; row > 4; row--) {
 			for (int col = 0; col < 8; col++) {
 				if (row == 5 && col == 6) {
@@ -214,7 +214,7 @@ public class CheckersTest {
 
 	@Test
 	public void testIsWinner6() {
-		this.model.setCurrentPlayer();
+		this.model.setNextPlayer();
 		assertFalse(this.model.isWinner());
 	}
 
@@ -234,7 +234,7 @@ public class CheckersTest {
 	
 	@Test
 	public void testIsWinner8(){
-		this.model.setCurrentPlayer();
+		this.model.setNextPlayer();
 		for (int row = 7; row > 4; row--) {
 			for (int col = 0; col < 8; col++) {
 				if ((row == 5 && col == 6) || (row==5 && col==4)) {
