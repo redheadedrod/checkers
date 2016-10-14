@@ -9,7 +9,12 @@ import javax.swing.JFrame;
  * @version September 25, 2016
  */
 final class MainGUI {
-
+	/**
+	 * a constructor for class MainGUI.
+	 */
+	private MainGUI() {
+		
+	}
 	/**
 	 * main method to drive the game.
 	 * 
