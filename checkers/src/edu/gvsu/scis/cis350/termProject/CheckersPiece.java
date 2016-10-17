@@ -8,38 +8,30 @@ package edu.gvsu.scis.cis350.termProject;
  */
 public class CheckersPiece {
 
+	private boolean isKing;
+	private Player owner;
+	
 	/**
-	 * boolean to determine if a piece is king.
+	 * Constructor creates a checkersPiece object
+	 * @param o the color of the player
 	 */
-    private boolean isKing;
-    /**
-     * Player object to determine who owns the piece.
-     */
-    private Player owner;
-
-    /**
-     * Constructor creates a checkersPiece object.
-     * 
-     * @param o
-     *            the color of the player
-     */
-    public CheckersPiece(final Player o) {
-        this.isKing = false;
-        this.owner = o;
-    }
-
-    /**
-     * @return the type of the current player.
-     */
-    public final Player getPlayer() {
-        return this.owner;
-    }
-
-    /**
-     * @return true if the checkersPiece is a king, otherwise false.
-     */
-    public final boolean isKing() {
-        return isKing;
-    }
-
+	public CheckersPiece(Player o){
+		this.isKing = false;
+		this.owner = o;
+	}
+	
+	/**
+	 * @return the type of the current player
+	 */
+	public Player getPlayer(){
+		return this.owner;
+	}
+	
+	/**
+	 * @return true if the checkersPiece is a king, otherwise false
+	 */
+	public boolean isKing(){
+		return isKing;
+	}
+	
 }
