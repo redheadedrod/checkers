@@ -281,12 +281,12 @@ public class CheckersModel {
         return this.player;
     }
 
-    /**
-     * Switches the turn of the current player to the next player.
-     */
-    public final void setCurrentPlayer() {
-        this.player = this.player.nextTurn();
-    }
+	/**
+	 * Switches the turn of the current player to the next player
+	 */
+	public void setNextPlayer() {
+		this.player = this.player.nextTurn();
+	}
 
     /**
      * @param row
