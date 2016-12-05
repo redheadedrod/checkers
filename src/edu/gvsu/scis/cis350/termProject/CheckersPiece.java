@@ -18,7 +18,7 @@ public class CheckersPiece {
   private Player owner;
 
   /**
-   * constructor for the checkers piece.
+   * Constructor for the checkers piece.
    * 
    * @param o
    *          is a player object of a certain color
@@ -42,7 +42,7 @@ public class CheckersPiece {
   }
 
   /**
-   * @return the type of the current player
+   * @return the type of the current player.
    */
   public final Player getPlayer() {
     return this.owner;

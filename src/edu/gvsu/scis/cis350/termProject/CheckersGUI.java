@@ -96,8 +96,8 @@ public class CheckersGUI extends JFrame implements ActionListener {
    */
   private String player2;
   /**
-   * An ArrayList of integers that holds all of the possible jumps that a player
-   *  must execute.
+   * An ArrayList of integers that holds all of the possible jumps that a 
+   * player must execute.
    */
   private ArrayList<ArrayList<Integer>> jumpMoves;
   /**
@@ -145,13 +145,13 @@ public class CheckersGUI extends JFrame implements ActionListener {
   private static final int BOARD_DIM = 8;
 
   /**
-   * Constructor creates the user board and sets values to the instance 
-   * variables.
+   * Constructor creates the user board and sets values 
+   * to the instance variables.
    */
   public CheckersGUI() {
     this.board = new JButton[BOARD_DIM][BOARD_DIM];
     this.piece = null;
-    this.model = new CheckersModel();
+    this.model = null;
     this.redIcon = new ImageIcon("Red.png");
     this.blackIcon = new ImageIcon("Black.png");
     this.blank = new ImageIcon("Blank.png");
@@ -159,15 +159,7 @@ public class CheckersGUI extends JFrame implements ActionListener {
     this.redKing = new ImageIcon("RedKing.png");
     this.firstClick = true;
     this.moves = new int[4];
-    this.player1 = JOptionPane.showInputDialog(null, 
-        "Enter the name of the first player.");
-    this.player2 = JOptionPane.showInputDialog(null, 
-        "Enter the name of the second player.");
-    this.player1 = "Andy";
-    this.player2 = "Nick";
-    JOptionPane.showMessageDialog(null, player1 + " is Black and " 
-    + player2 + " is Red.");
-    this.currentPlayer = "It is " + player1 + "'s turn.";
+    this.currentPlayer = "Welcome to Checkers";
     this.canJump = false;
     this.jumpMoves = new ArrayList<ArrayList<Integer>>();
     this.jumpRow = 2;
@@ -218,7 +210,8 @@ public class CheckersGUI extends JFrame implements ActionListener {
     JPanel currentPlayerLabel = new JPanel();
     this.displayCurrentPlayer = new JLabel(this.currentPlayer);
     currentPlayerLabel.add(this.displayCurrentPlayer);
-    this.displayBoard();
+    this.disableButtons();
+    this.displayBlankBoard();
     JPanel big = new JPanel();
     big.setLayout(new BoxLayout(big, BoxLayout.Y_AXIS));
     menus.add(fileMenu);
@@ -242,7 +235,7 @@ public class CheckersGUI extends JFrame implements ActionListener {
   }
 
   /**
-   * Helper method for the constructor that sets the icons for the board.
+   * Displays a new board.
    */
   public final void displayBoard() {
     for (int row = 0; row < BOARD_DIM; row++) {
@@ -255,6 +248,39 @@ public class CheckersGUI extends JFrame implements ActionListener {
         } else {
           this.board[row][col].setIcon(this.blackIcon);
         }
+      }
+    }
+  }
+
+  /**
+   * Displays a blank board.
+   */
+  public final void displayBlankBoard() {
+    for (int row = 0; row < BOARD_DIM; row++) {
+      for (int col = 0; col < BOARD_DIM; col++) {
+        this.board[row][col].setIcon(this.blank);
+      }
+    }
+  }
+
+  /**
+   * Disables the buttons.
+   */
+  public final void disableButtons() {
+    for (int row = 0; row < BOARD_DIM; row++) {
+      for (int col = 0; col < BOARD_DIM; col++) {
+        this.board[row][col].setEnabled(false);
+      }
+    }
+  }
+
+  /**
+   * enables the buttons.
+   */
+  public final void enableButtons() {
+    for (int row = 0; row < BOARD_DIM; row++) {
+      for (int col = 0; col < BOARD_DIM; col++) {
+        this.board[row][col].setEnabled(true);
       }
     }
   }
@@ -346,8 +372,8 @@ public class CheckersGUI extends JFrame implements ActionListener {
   }
 
   /**
-   * Method reacts to the different buttons that are pressed 
-   * and updates the game accordingly.
+   * Method reacts to the different buttons that are pressed and 
+   * updates the game accordingly.
    * 
    * @param e
    *          is the ActionEvent which drives movement of pieces
@@ -355,14 +381,17 @@ public class CheckersGUI extends JFrame implements ActionListener {
   public final void actionPerformed(final ActionEvent e) {
     if (e.getSource() == this.openGameItem) {
       this.openGame();
+      return;
     }
 
     if (e.getSource() == this.saveGameItem) {
       this.saveGame();
+      return;
     }
 
     if (e.getSource() == this.newGameItem) {
       this.newGame();
+      return;
     }
     if (firstClick) {
       for (int row = 0; row < BOARD_DIM; row++) {
@@ -414,20 +443,18 @@ public class CheckersGUI extends JFrame implements ActionListener {
                     && col == this.currentJumps.get(0).get(jumpCol)) {
                   this.model.movePiece(moves[0], moves[1], moves[2], moves[3]);
                   this.movePiece(moves[0], moves[1], moves[2], moves[3]);
-                  int[] loc = this.model.jumped(moves[0], moves[1], moves[2], 
-                      moves[3]);
+                  int[] loc = this.model.jumped(moves[0], moves[1], 
+                      moves[2], moves[3]);
                   this.removeJumpedPiece(loc[0], loc[1]);
                   if (this.currentJumps.get(0).size() - 1 == this.jumpCol) {
                     this.currentJumps.clear();
                     this.canJump = false;
-                    if (!this.model.getPiece(moves[2], moves[3])
-                        .isKing()
+                    if (!this.model.getPiece(moves[2], moves[3]).isKing()
                         && this.model.getCurrentPlayer() == Player.Black 
                         && moves[2] == 0) {
                       this.piece.setKing(true);
                       this.board[row][col].setIcon(this.blackKing);
-                    } else if (!this.model.getPiece(moves[2], moves[3])
-                        .isKing()
+                    } else if (!this.model.getPiece(moves[2], moves[3]).isKing()
                         && this.model.getCurrentPlayer() == Player.Red 
                         && moves[2] == 7) {
                       this.piece.setKing(true);
@@ -468,7 +495,7 @@ public class CheckersGUI extends JFrame implements ActionListener {
                     }
                     this.lightUpJumps();
                     JOptionPane.showMessageDialog(null, player1 
-                        + " must jump!");
+                        +  " must jump!");
                   }
                   return;
                 }
@@ -482,12 +509,12 @@ public class CheckersGUI extends JFrame implements ActionListener {
                 if (this.currentJumps.size() == 1) {
                   this.model.movePiece(moves[0], moves[1], moves[2], moves[3]);
                   this.movePiece(moves[0], moves[1], moves[2], moves[3]);
-                  int[] loc = this.model.jumped(moves[0], moves[1], moves[2], 
-                      moves[3]);
+                  int[] loc = this.model.jumped(moves[0], moves[1], 
+                      moves[2], moves[3]);
                   if (this.currentJumps.get(0).size() == 4) {
                     this.currentJumps.clear();
                     this.canJump = false;
-                    if (!this.model.getPiece(moves[2], moves[3]).isKing() 
+                    if (!this.model.getPiece(moves[2], moves[3]).isKing()
                         && this.model.getCurrentPlayer() == Player.Black 
                         && moves[2] == 0) {
                       this.piece.setKing(true);
@@ -528,8 +555,8 @@ public class CheckersGUI extends JFrame implements ActionListener {
                   return;
                 }
               }
-            } else if (this.model.canMove(moves[0], moves[1], moves[2], 
-                moves[3])[0]) {
+            } else if (this.model.canMove(moves[0], moves[1], 
+                moves[2], moves[3])[0]) {
               this.model.movePiece(moves[0], moves[1], moves[2], moves[3]);
               this.movePiece(moves[0], moves[1], moves[2], moves[3]);
               if (!this.model.getPiece(moves[2], moves[3]).isKing()
@@ -557,12 +584,21 @@ public class CheckersGUI extends JFrame implements ActionListener {
       }
     }
     if (this.model.isWinner(this.model.getCurrentPlayer())) {
-      if (this.model.getCurrentPlayer() == Player.Black) {
+      if (this.model.getCurrentPlayer() == Player.Red) {
         JOptionPane.showMessageDialog(null, "Black has Won!");
       } else {
         JOptionPane.showMessageDialog(null, "Red has Won!");
       }
-      this.newGame();
+      int selection = JOptionPane.YES_NO_OPTION;
+      selection = JOptionPane.showConfirmDialog(null, 
+          "Would You Like to start a new game?",
+          "Warning", selection);
+      if (selection == JOptionPane.YES_OPTION) {
+        this.newGame();
+      } else {
+        this.displayBlankBoard();
+        this.disableButtons();
+      }
       return;
     }
     this.currentPlayer();
@@ -579,11 +615,10 @@ public class CheckersGUI extends JFrame implements ActionListener {
         "Enter the name of the first player.");
     this.player2 = JOptionPane.showInputDialog(null, 
         "Enter the name of the second player.");
-    this.player1 = "Andy";
-    this.player2 = "Nick";
     JOptionPane.showMessageDialog(null, player1 + " is Black and " 
-    + player2 + " is Red.");
+        + player2 + " is Red.");
     this.currentPlayer = "It is " + player1 + "'s turn.";
+    this.enableButtons();
     this.displayBoard();
     this.currentPlayer();
     this.displayCurrentPlayer.setText(this.currentPlayer);
@@ -595,6 +630,11 @@ public class CheckersGUI extends JFrame implements ActionListener {
    * Allows players to save the state of a game to a text file.
    */
   public final void saveGame() {
+    if (this.model == null) {
+      JOptionPane.showMessageDialog(null, 
+          "You must start a new game in order to save it!");
+      return;
+    }
     // create File Chooser so that it starts at the current directory
     String userDir = System.getProperty("user.dir");
     JFileChooser fc = new JFileChooser(userDir);
@@ -605,8 +645,8 @@ public class CheckersGUI extends JFrame implements ActionListener {
     if (returnVal == JFileChooser.APPROVE_OPTION) {
       String filename = fc.getSelectedFile().getName();
       ArrayList<String> textCommands = new ArrayList<String>();
-      for (int row = 0; row < 8; row++) {
-        for (int col = 0; col < 8; col++) {
+      for (int row = 0; row < BOARD_DIM; row++) {
+        for (int col = 0; col < BOARD_DIM; col++) {
           this.piece = this.model.getPiece(row, col);
           if (this.piece == null) {
             textCommands.add(row + "+" + col + "+" + "n");
@@ -654,8 +694,8 @@ public class CheckersGUI extends JFrame implements ActionListener {
   }
 
   /**
-   * Allows the players to load a previously played 
-   * and saved game from a text file.
+   * Allows the players to load a previously played and
+   * saved game from a text file.
    */
   public final void openGame() {
     String playerList = "";

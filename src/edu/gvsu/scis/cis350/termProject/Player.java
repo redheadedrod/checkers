@@ -20,8 +20,8 @@ public enum Player {
   public Player nextTurn() {
     /*
      * this made checkstlye unhappy on account of inline conditional. 
-     * keeping in case mine causes bugs or slowdown. thos solution is 
-     * cooler though, i may ignore checkstlye for it return this
+     * keeping in case mine causes bugs or slowdown. thos solution 
+     * is cooler though, i may ignore checkstlye for it return this
      * == Black ? Red : Black;
      */
     if (this == Black) {

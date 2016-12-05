@@ -520,6 +520,24 @@ public class CheckersTest {
     this.model.removePiece(0, 1);
     ArrayList<ArrayList<Integer>> loc = this.model.canJump(Player.Black);
     assertEquals(1, loc.size());
+  }
 
+  @Test
+  public void testCheckForMoreJumps1() {
+    this.model.movePiece(2, 3, 4, 2);
+    this.model.movePiece(5, 6, 3, 3);
+    this.model.getPiece(4, 2).setKing(true);
+    int[] loc = this.model.checkForMoreJumps(Player.Red, true, 3, 4, 2, 4, 2);
+    assertEquals(2, loc[0]);
+    assertEquals(4, loc[1]);
+  }
+
+  @Test
+  public void testCheckForMoreJumps2() {
+    this.model.movePiece(2, 3, 4, 3);
+    this.model.movePiece(5, 4, 3, 4);
+    int[] loc = this.model.checkForMoreJumps(Player.Red, true, 3, 4, 3, 4, 3);
+    assertEquals(-1, loc[0]);
+    assertEquals(0, loc[1]);
   }
 }

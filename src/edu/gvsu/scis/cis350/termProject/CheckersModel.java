@@ -91,9 +91,9 @@ public class CheckersModel {
    *          the row of the new piece location
    * @param endCol
    *          the column of the new piece location
-   * @return an array whose first element is true if the piece isn't jumping, 
-   *         but is a valid move, otherwise false. The second element is true
-   *          if the player is jumping and it is a valid
+   * @return an array whose first element is true if the piece isn't 
+   *         jumping, but is a valid move otherwise false. The second
+   *         element is true if the player is jumping and it is a valid
    *         move, otherwise false.
    */
   public final boolean[] canMove(final int startRow, final int startCol, 
@@ -123,7 +123,7 @@ public class CheckersModel {
               == Player.Black
               && this.piece.getPlayer() == Player.Red)
               || (this.board[startRow + 1][startCol + 1].getPlayer() 
-                  == Player.Red 
+                  == Player.Red
                   && this.piece.getPlayer() == Player.Black)) {
             type[1] = true;
             return type;
@@ -134,7 +134,7 @@ public class CheckersModel {
           } else if ((this.board[startRow + 1][startCol - 1].getPlayer() 
               == Player.Black
               && this.piece.getPlayer() == Player.Red)
-              || (this.board[startRow + 1][startCol - 1].getPlayer() 
+              || (this.board[startRow + 1][startCol - 1].getPlayer()
                   == Player.Red
                   && this.piece.getPlayer() == Player.Black)) {
             type[1] = true;
@@ -192,8 +192,9 @@ public class CheckersModel {
    *          the row of the new checkersPiece location
    * @param endCol
    *          the column of the new checkersPiece location
-   * @return an array whose two elements are the row and column of the 
-   * player who has been jumped respectively.
+   * @return an array whose two elements are the row and column 
+   * of the player who has been jumped
+   *         respectively.
    */
   public final int[] jumped(final int startRow, final int startCol, 
       final int endRow, final int endCol) {
@@ -218,8 +219,8 @@ public class CheckersModel {
   }
 
   /**
-   * calculates all jumps that take the most jumps
-   * and puts them in an array list.
+   * calculates all jumps that take the most jumps and puts them 
+   * in an array list.
    * 
    * @param p
    *          the current player
@@ -233,8 +234,8 @@ public class CheckersModel {
     int tempCol = 0;
     ArrayList<Integer> jumpDir = new ArrayList<Integer>();
     ArrayList<Integer> currentJumps = new ArrayList<Integer>();
-    ArrayList<ArrayList<Integer>> jumpList 
-    = new ArrayList<ArrayList<Integer>>();
+    ArrayList<ArrayList<Integer>> jumpList = 
+        new ArrayList<ArrayList<Integer>>();
     for (int row = 0; row < BOARD_DIM; row++) {
       for (int col = 0; col < BOARD_DIM; col++) {
         this.piece = this.board[row][col];
@@ -251,7 +252,7 @@ public class CheckersModel {
           currentJumps.add(row);
           currentJumps.add(col);
           for (int dir = 0; dir < 4; dir++) {
-            loc = this.checkForMoreJumps(p, this.piece.isKing(),
+            loc = this.checkForMoreJumps(p, this.piece.isKing(), 
                 dir, loc[0], loc[1], pRow, pCol);
             while (loc[0] != -1) {
               currentJumps.add(loc[0]);
@@ -263,7 +264,7 @@ public class CheckersModel {
               jumpDir.add(jumps, dir);
               jumps++;
               dir = 0;
-              loc = this.checkForMoreJumps(p, this.piece.isKing(),
+              loc = this.checkForMoreJumps(p, this.piece.isKing(), 
                   dir, loc[0], loc[1], pRow, pCol);
             }
             if (loc[0] == -1) {
@@ -272,14 +273,6 @@ public class CheckersModel {
                   jumpDir.add(0, 1);
                 } else {
                   jumpDir.set(0, jumpDir.get(0) + 1);
-                }
-              }
-              if (jumps > 4) {
-                if (row == pRow && col == pCol && currentJumps.get(2) == tempRow
-                    && currentJumps.get(3) == tempCol) {
-                  currentJumps.remove(currentJumps.size() - 2);
-                  currentJumps.remove(currentJumps.size() - 1);
-                  dir = 4;
                 }
               }
               loc[0] = tempRow;
@@ -344,8 +337,8 @@ public class CheckersModel {
   }
 
   /**
-   * Helper method that checks to see if a piece can continue to
-   * jump an multiple times.
+   * Helper method that checks to see if a piece 
+   * can continue to jump an multiple times.
    * 
    * @param play
    *          the current player
@@ -363,7 +356,7 @@ public class CheckersModel {
    *          direction in which the next piece is
    * @return an array of locations that are made up of multiple jumps
    */
-  public final int[] checkForMoreJumps(final Player play, final boolean king,
+  public final int[] checkForMoreJumps(final Player play, final boolean king, 
       final int direction, final int startRow, final int startCol, 
       final int prevRow, final int prevCol) {
     int[] moves = { -1, 0 };
@@ -431,8 +424,9 @@ public class CheckersModel {
           }
         }
         break;
+      
       default:
-        break;
+        return moves;
 
       }
     } else {
@@ -506,11 +500,12 @@ public class CheckersModel {
 
   /**
    * Method checks to see if there are any remaining pieces of a 
-   * certain color to determine whether there is a winner or not.
+   * certain color to determine whether
+   * there is a winner or not.
    * 
    * @param p
    *          the player for which we are checking to see if they lose
-   * @return true if there are no remaining pieces of a certain color,
+   * @return true if there are no remaining pieces of a certain color, 
    * otherwise false
    */
   public final boolean isWinner(final Player p) {
@@ -530,8 +525,8 @@ public class CheckersModel {
   }
 
   /**
-   * Method calculates whether or not a given piece can make any 
-   * allowed move in the game.
+   * Method calculates whether or not a given piece can make 
+   * any allowed move in the game.
    * 
    * @param pRow
    *          the row of the piece
@@ -552,8 +547,9 @@ public class CheckersModel {
   }
 
   /**
-   * helper method that finds the longest jump or jumps if 
-   * there is a tie and puts them in an ArrayList.
+   * helper method that finds the longest jump or jumps 
+   * if there is a tie and puts them in an
+   * ArrayList.
    * 
    * @param jumpList
    *          the ArrayList containing the jumps.
@@ -623,8 +619,8 @@ public class CheckersModel {
    * @param col
    *          the column on the board
    */
-  public final void setPiece(final CheckersPiece p, final int row, 
-      final int col) {
+  public final void setPiece(final CheckersPiece p, 
+      final int row, final int col) {
     this.board[row][col] = p;
   }
 
