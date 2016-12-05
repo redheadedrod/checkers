@@ -461,8 +461,8 @@ public class CheckersGUI extends JFrame implements ActionListener {
                       this.board[row][col].setIcon(this.redKing);
                     }
                     this.model.setNextPlayer();
-                    this.jumpMoves = this.model.canJump(this.model.
-                        getCurrentPlayer());
+                    this.jumpMoves = 
+                        this.model.canJump(this.model.getCurrentPlayer());
                     if (this.jumpMoves.size() > 0) {
                       this.canJump = true;
                     }
@@ -526,8 +526,8 @@ public class CheckersGUI extends JFrame implements ActionListener {
                       this.board[row][col].setIcon(this.redKing);
                     }
                     this.model.setNextPlayer();
-                    this.jumpMoves = this.model.canJump(this.model.
-                        getCurrentPlayer());
+                    this.jumpMoves = 
+                        this.model.canJump(this.model.getCurrentPlayer());
                     if (this.jumpMoves.size() > 0) {
                       this.canJump = true;
                     }
@@ -571,8 +571,8 @@ public class CheckersGUI extends JFrame implements ActionListener {
                 this.board[row][col].setIcon(this.redKing);
               }
               this.model.setNextPlayer();
-              this.jumpMoves = this.model.canJump(this.model.
-                  getCurrentPlayer());
+              this.jumpMoves = 
+                  this.model.canJump(this.model.getCurrentPlayer());
               if (this.jumpMoves.size() > 0) {
                 this.canJump = true;
               }
