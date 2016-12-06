@@ -37,7 +37,7 @@ public class CheckersModel {
     for (int row = 0; row < BOARD_DIM; row++) {
       for (int col = 0; col < BOARD_DIM; col++) {
         if (row == 0 || row == 2) {
-          if (col % 2 == 1) {
+          if ((col & 1) == 1) {
             this.board[row][col] = new CheckersPiece(Player.Red);
           }
         }
@@ -52,7 +52,7 @@ public class CheckersModel {
           }
         }
         if (row == 6) {
-          if (col % 2 == 1) {
+          if ((col & 1) == 1) {
             this.board[row][col] = new CheckersPiece(Player.Black);
           }
         }
