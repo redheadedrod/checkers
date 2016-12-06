@@ -6,7 +6,7 @@ import java.util.*;
 import org.junit.Test;
 
 /**
- * Class tests the various methods associated with the checkers project
+ * Class tests the various methods associated with the checkers project.
  * 
  * @author Andrew Olesak
  * @version September 24, 2016
@@ -17,7 +17,7 @@ public class CheckersTest {
   private CheckersModel model;
 
   /**
-   * Constructor sets values to the instance variables
+   * Constructor sets values to the instance variables.
    */
   public CheckersTest() {
     this.piece = null;

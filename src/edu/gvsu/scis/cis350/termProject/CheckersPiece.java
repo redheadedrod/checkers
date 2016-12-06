@@ -49,7 +49,7 @@ public class CheckersPiece {
   }
 
   /**
-   * @return true if the checkersPiece is a king, otherwise false
+   * @return true if the checkersPiece is a king, otherwise false.
    */
   public final boolean isKing() {
     return isKing;

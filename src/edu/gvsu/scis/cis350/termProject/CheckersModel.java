@@ -313,14 +313,14 @@ public class CheckersModel {
                     tempRow = row;
                     tempCol = col;
                   } else if (jumpList.get(listCounter).size() > 4) {
-                    pRow = jumpList.get(listCounter).
-                        get(jumpList.get(listCounter).size() - 6);
-                    pCol = jumpList.get(listCounter).
-                        get(jumpList.get(listCounter).size() - 5);
-                    loc[0] = jumpList.get(listCounter).
-                        get(jumpList.get(listCounter).size() - 4);
-                    loc[1] = jumpList.get(listCounter).
-                        get(jumpList.get(listCounter).size() - 3);
+                    pRow = jumpList.get(listCounter)
+                        .get(jumpList.get(listCounter).size() - 6);
+                    pCol = jumpList.get(listCounter)
+                        .get(jumpList.get(listCounter).size() - 5);
+                    loc[0] = jumpList.get(listCounter)
+                        .get(jumpList.get(listCounter).size() - 4);
+                    loc[1] = jumpList.get(listCounter)
+                        .get(jumpList.get(listCounter).size() - 3);
                     tempRow = loc[0];
                     tempCol = loc[1];
                   }
